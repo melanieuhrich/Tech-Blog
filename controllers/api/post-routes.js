@@ -12,13 +12,7 @@ router.get('/create-post', async (req, res) => {
     res.status(500).json(err)
   }
 });
-////////
-////////
-////////
-////////
-////////
-//////// come back
-
+/////
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -60,14 +54,19 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new post
-router.post('/', withAuth, async (req, res) => {
+router.post('/dashboard', async (req, res) => {
     try {
+      console.log('post created!!');
+
       const newPost = await Post.create({
         ...req.body,
         user_id: req.session.user_id,
       });
   
-      res.status(200).json(newPost);
+      res.render('dashboard', {
+        ...newPost,
+        // logged_in: true
+      });
     } catch (err) {
       res.status(400).json(err);
     }
