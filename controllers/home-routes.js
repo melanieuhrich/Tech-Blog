@@ -16,7 +16,34 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// Show the dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    console.log('WE HIT THE DASHBOARD ROUTE!!!!!!')
+    const userName = await User.findOne({ where: { id: req.session.user_id }, raw: true });
+    // console.log('USER DATAT on the dashboard raote!!!', userName)
 
+    const posts = await Post.findAll({ 
+      where: { id: req.session.user_id }, 
+      include: [
+      {
+        model: User,
+        attributes: ['name']
+      }
+    ],
+    raw: true });
+    
+
+    res.render('dashboard', {
+      user: userName, posts: posts,
+      logged_in: req.session.logged_in
+    })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+// Get all posts
 router.get('/', async (req, res) => {
   console.log('We hit hte / route who tries to find all the posts!!!')
   // console.log('we hit ht ehome route!!!')
@@ -47,8 +74,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a post by its ID
-router.get('/:id', async (req, res) => {
+// Get a post by its ID with authorization
+router.get('/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
@@ -74,25 +101,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// // Use withAuth middleware to prevent access to route
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-//     // Find the logged in user based on the session ID
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Post }],
-//     });
 
-//     const user = userData.get({ plain: true });
-
-//     res.render('profile', {
-//       ...user,
-//       logged_in: true
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 
 module.exports = router;

@@ -2,6 +2,24 @@ const router = require('express').Router();
 const { Post, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+// Show the create post page
+router.get('/create-post', async (req, res) => {
+  try {
+    console.log('create post route hit');
+    
+    res.render('create-post', {})
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
+////////
+////////
+////////
+////////
+////////
+//////// come back
+
+
 // Get all posts
 router.get('/', async (req, res) => {
   try {
