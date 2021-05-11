@@ -6,7 +6,7 @@ class PostComment extends Model {}
 
 PostComment.init(
   {
-    // define columns
+    // Define columns
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,

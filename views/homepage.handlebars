@@ -1,0 +1,22 @@
+<!-- Loop over each object in the projects array -->
+{{#if posts}}
+{{#each posts as |post| }}
+<div>
+  <div>
+    <h3>
+      <!-- Display post name -->
+      <a href="/post/{{post.id}}">{{post.title}}</a>
+    </h3>
+    <h5>Posted by {{post.user.name}} on {{format_date post.date_created}}</h5>
+  </div>
+  <div>
+    <p>
+      {{post.content}}
+    </p>
+  </div>
+</div>
+{{/each}}
+{{/if}}
+{{#unless posts}}
+<h5>Homepage coming soon!</h5>
+{{/unless}}
