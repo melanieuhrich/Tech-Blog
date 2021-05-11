@@ -2,7 +2,23 @@ const router = require('express').Router();
 const { Post, User } = require('../models');
 const withAuth = require('../utils/auth');
 
+
+console.log('log right before route /login route!!!')
+// Logs in a user
+router.get('/login', (req, res) => {
+  console.log('$$$$$$$$We hit the login pageeee show me the page route!!', req.session)
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
+
+
 router.get('/', async (req, res) => {
+  console.log('We hit hte / route who tries to find all the posts!!!')
   // console.log('we hit ht ehome route!!!')
   try {
     // Get all posts and join with user data
@@ -78,15 +94,5 @@ router.get('/:id', async (req, res) => {
 //   }
 // });
 
-// Logs in a user
-router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('login');
-});
 
 module.exports = router;
