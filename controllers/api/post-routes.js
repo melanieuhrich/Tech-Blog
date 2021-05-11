@@ -14,6 +14,25 @@ router.get('/create-post', async (req, res) => {
 });
 /////
 
+// Create a new post
+router.post('/dashboard', async (req, res) => {
+  try {
+    console.log('post created!!');
+
+    const newPost = await Post.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
+
+    res.render('dashboard', {
+      ...newPost,
+      // logged_in: true
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 // Get all posts
 router.get('/', async (req, res) => {
   try {
@@ -51,25 +70,6 @@ router.get('/:id', async (req, res) => {
     res.status(500).json(err)
   }
   
-});
-
-// Create a new post
-router.post('/dashboard', async (req, res) => {
-    try {
-      console.log('post created!!');
-
-      const newPost = await Post.create({
-        ...req.body,
-        user_id: req.session.user_id,
-      });
-  
-      res.render('dashboard', {
-        ...newPost,
-        // logged_in: true
-      });
-    } catch (err) {
-      res.status(400).json(err);
-    }
 });
 
 // Update a post 
