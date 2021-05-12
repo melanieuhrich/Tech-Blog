@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -24,7 +24,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
     // console.log('USER DATAT on the dashboard raote!!!', userName)
 
     const posts = await Post.findAll({ 
-      where: { id: req.session.user_id }, 
+      where: { user_id: req.session.user_id }, 
       include: [
       {
         model: User,
@@ -32,6 +32,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
       }
     ],
     raw: true });
+
+
+    console.log('POSTS we got from the DB!!!!!!', posts)
     
 
     res.render('dashboard', {
@@ -60,7 +63,7 @@ router.get('/', async (req, res) => {
 
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
-
+    console.log(posts);
     // Pass serialized data and session flag into template
     res.render(
       // postData
@@ -75,7 +78,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a post by its ID with authorization
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
@@ -83,16 +86,20 @@ router.get('/:id', withAuth, async (req, res) => {
           model: User,
           attributes: ['name'],
         },
+        {
+          model: Comment,
+          attributes: ['contents'],
+        },
       ],
     });
 
     const post = postData.get({ plain: true });
-
+console.log('Post we are giving to the page!!',post);
     res.render(
       // postData
       'post', 
     {
-      ...post,
+      post: post,
       logged_in: req.session.logged_in
     }
     );

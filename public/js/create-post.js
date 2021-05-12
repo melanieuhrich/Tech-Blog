@@ -3,17 +3,18 @@ const newFormHandler = async (event) => {
     console.log("post created!");
 
     const title = document.querySelector('.title').value.trim();
-    const content = document.querySelector('.content').value.trim();
+    const contents = document.querySelector('.content').value.trim();
 
-    if (title && content) {
+    if (title && contents) {
         const response = await fetch(`/api/posts`, {
             method: 'POST',
-            body: JSON.stringify({ title, content }),
+            body: JSON.stringify({ title, contents }),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
+        console.log('response after we made the post!!!', response)
         if (response.ok) {
             document.location.replace('/dashboard'); // idk?????
         } else {
@@ -23,5 +24,5 @@ const newFormHandler = async (event) => {
 };
 
 document
-    .querySelector('.new-post-form')
-    .addEventListener('submit', newFormHandler);
+    .querySelector('#create-button')
+    .addEventListener('click', newFormHandler);

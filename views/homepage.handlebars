@@ -1,18 +1,17 @@
 <!-- Loop over each object in the projects array -->
 {{#if posts}}
-{{#each posts as |post| }}
-<div>
-  <div>
-    <h3>
-      <!-- Display post name -->
-      <a href="/post/{{post.id}}">{{post.title}}</a>
-    </h3>
-    <h5>Posted by {{post.user.name}} on {{format_date post.date_created}}</h5>
-  </div>
-  <div>
-    <p>
-      {{post.content}}
-    </p>
+{{#each posts as |post|}}
+<div class="row">
+  <div class="col s12 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title"><a href="/post/{{post.id}}">{{post.title}}</a></span>
+        <p>Posted by {{post.user.name}} on {{format_date post.date_created}}</p>
+        <p>
+          {{post.contents}}
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 {{/each}}

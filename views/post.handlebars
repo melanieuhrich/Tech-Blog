@@ -9,7 +9,7 @@
                 </span>
                 <p>Posted by {{post.user.name}} on {{format_date post.date_created}}</p>
                 <p>
-                    {{post.content}}
+                    {{post.contents}}
                 </p>
             </div>
         </div>
@@ -25,12 +25,12 @@
                     <form class="col s12 new-comment-form">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1 comment" class="materialize-textarea"></textarea>
+                                <textarea id="textarea1" class="materialize-textarea white-text comment"></textarea>
                                 <label for="textarea1"></label>
                             </div>
                         </div>
                         <div>
-                            <a class="waves-effect waves-light btn-small">Submit</a>
+                            <button class="waves-effect waves-light btn-small" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -55,4 +55,4 @@
 {{/each}}
 {{/if}}
 
-<script src="./js/post.js"></script>
+<script src="/js/post.js"></script>

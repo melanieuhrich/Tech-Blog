@@ -15,7 +15,7 @@ router.get('/create-post', async (req, res) => {
 /////
 
 // Create a new post
-router.post('/dashboard', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     console.log('post created!!');
 
@@ -24,10 +24,7 @@ router.post('/dashboard', async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    res.render('dashboard', {
-      ...newPost,
-      // logged_in: true
-    });
+    res.json(newPost);
   } catch (err) {
     res.status(400).json(err);
   }
