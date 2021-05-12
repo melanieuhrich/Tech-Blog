@@ -70,7 +70,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a post 
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/edit-post', withAuth, async (req, res) => {
   try {
     const postData = await Post.update({
       where: {
@@ -84,12 +84,12 @@ router.put('/:id', withAuth, async (req, res) => {
       return;
     }
 
-    res.status(200).json(postData);
+    res.render('edit-post', {});
     } catch (err) {
       res.status(500).json(err);
 
-  }
-});
+  } 
+}); //////////// don't know ////////////
 
 // Delete a post
 router.delete('/:id', withAuth, async (req, res) => {

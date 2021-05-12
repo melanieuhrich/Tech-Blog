@@ -11,12 +11,14 @@ const newFormHandler = async (event) => {
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response.data);
+        let newCommentId = 2;
 
-        if (response.ok) {
-            document.location.replace('/post');
-        } else {
-            alert('Failed to create comment');
-        }
+        // if (response.ok) {
+        //     document.location.replace('/post/'+newPostId);
+        // } else {
+        //     alert('Failed to create comment');
+        // }
     }
 }; 
 
