@@ -69,27 +69,47 @@ router.get('/:id', async (req, res) => {
   
 });
 
-// Update a post 
-router.put('/edit-post', withAuth, async (req, res) => {
+// Show the edit post page
+router.get('/edit-post', async (req, res) => {
   try {
-    const postData = await Post.update({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
+    console.log('edit post route hit');
 
-    if (!postData) {
-      res.status(404).json({ message: 'No post found with this id!' });
-      return;
-    }
+    // const postData = await Post.findByPk({
+    //   where: {
+    //     id: req.params.id,
+    //     user_id: req.session.user_id,
+    //   },
+    // });
+    
+    res.render('edit-post', {})
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
+/////
 
-    res.render('edit-post', {});
-    } catch (err) {
-      res.status(500).json(err);
 
-  } 
-}); //////////// don't know ////////////
+// // Update a post 
+// router.put('/', withAuth, async (req, res) => {
+//   try {
+//     const postData = await Post.update({
+//       where: {
+//         id: req.params.id,
+//         user_id: req.session.user_id,
+//       },
+//     });
+
+//     if (!postData) {
+//       res.status(404).json({ message: 'No post found with this id!' });
+//       return;
+//     }
+
+//     res.render('dashboard', {});
+//     } catch (err) {
+//       res.status(500).json(err);
+
+//   } 
+// }); //////////// don't know ////////////
 
 // Delete a post
 router.delete('/:id', withAuth, async (req, res) => {
