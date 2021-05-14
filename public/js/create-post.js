@@ -1,6 +1,5 @@
 const newFormHandler = async (event) => {
     event.preventDefault();
-    console.log("post created!");
 
     const title = document.querySelector('.title').value.trim();
     const contents = document.querySelector('.content').value.trim();
@@ -14,7 +13,6 @@ const newFormHandler = async (event) => {
             },
         });
 
-        console.log('response after we made the post!!!', response)
         if (response.ok) {
             document.location.replace('/dashboard'); 
         } else {

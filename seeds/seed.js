@@ -8,7 +8,6 @@ const makeUser = async () => {
         password: '123456789'
     })
 
-    console.log('new user!', newUser)
 }
 
 
