@@ -8,7 +8,7 @@
                     <form class="col s12 new-post-form">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1 title" class="materialize-textarea">{{post.title}}</textarea>
+                                <textarea id="textarea1" class="materialize-textarea white-text title">{{post.title}}</textarea>
                                 <label for="textarea1"></label>
                             </div>
                         </div>
@@ -19,19 +19,21 @@
                     <form class="col s12 new-post-form">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1 content"
-                                    class="materialize-textarea">{{post.content}}</textarea>
+                                <textarea id="textarea1"
+                                    class="materialize-textarea white-text content">{{post.contents}}</textarea>
                                 <label for="textarea1"></label>
                             </div>
                         </div>
                         <div>
-                            <a class="waves-effect waves-light btn-small">Update Post</a>
+                            <button class="waves-effect waves-light btn-small" id="update" type="submit" data-id="{{post.id}}">Update Post</button>
                         </div>
                         <div>
-                            <a class="waves-effect waves-light btn-small" data-id="{{project.id}}">Delete</a>
+                            <button class="waves-effect waves-light btn-small" id="delete" data-id="{{post.id}}">Delete</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="/js/edit-post.js"></script>

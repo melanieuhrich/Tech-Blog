@@ -1,20 +1,21 @@
 const newFormHandler = async (event) => {
     event.preventDefault();
+    const id = event.target.getAttribute('data-id');
 
-    const title = document.querySelector('#title').value.trim();
-    const content = document.querySelector('#content').value.trim();
+    const title = document.querySelector('.title').value.trim();
+    const contents = document.querySelector('.content').value.trim();
 
-    if (title && content) {
-        const response = await fetch(`/api/posts`, {
+    if (title && contents) {
+        const response = await fetch(`/api/posts/${id}`, {
             method: 'PUT',
-            body: JSON.stringify({ title, content }),
+            body: JSON.stringify({ title, contents }),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
         if (response.ok) {
-            document.location.replace('/post');
+            document.location.replace('/dashboard');
         } else {
             alert('Failed to update post');
         }
@@ -38,9 +39,9 @@ const delButtonHandler = async (event) => {
 };
 
 document
-    .querySelector('.new-post-form')
-    .addEventListener('submit', newFormHandler);
+    .querySelector('#update')
+    .addEventListener('click', newFormHandler);
 
 document
-    .querySelector('.project-list')
+    .querySelector('#delete')
     .addEventListener('click', delButtonHandler);

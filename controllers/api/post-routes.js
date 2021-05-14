@@ -5,7 +5,6 @@ const withAuth = require('../../utils/auth');
 // Show the create post page
 router.get('/create-post', async (req, res) => {
   try {
-    console.log('create post route hit');
     
     res.render('create-post', {})
   } catch (err) {
@@ -17,7 +16,6 @@ router.get('/create-post', async (req, res) => {
 // Create a new post
 router.post('/', async (req, res) => {
   try {
-    console.log('post created!!');
 
     const newPost = await Post.create({
       ...req.body,
@@ -61,7 +59,6 @@ router.get('/:id', async (req, res) => {
       ],
       raw: true
     });
-
     res.render(postData)
   } catch (err) {
     res.status(500).json(err)
@@ -69,28 +66,9 @@ router.get('/:id', async (req, res) => {
   
 });
 
-// Show the edit post page
-router.get('/edit-post', async (req, res) => {
-  try {
-    console.log('edit post route hit');
-
-    // const postData = await Post.findByPk({
-    //   where: {
-    //     id: req.params.id,
-    //     user_id: req.session.user_id,
-    //   },
-    // });
-    
-    res.render('edit-post', {})
-  } catch (err) {
-    res.status(500).json(err)
-  }
-});
-/////
-
 
 // // Update a post 
-// router.put('/', withAuth, async (req, res) => {
+// router.put('/:id', withAuth, async (req, res) => {
 //   try {
 //     const postData = await Post.update({
 //       where: {
@@ -110,6 +88,35 @@ router.get('/edit-post', async (req, res) => {
 
 //   } 
 // }); //////////// don't know ////////////
+
+router.put('/:id', withAuth, async (req, res) => {
+  console.log(req.body);
+  try {
+    const postData = await Post.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    });
+    if(!postData) {
+      res.status(404).json({ message:'No post found with that ID.' });
+      return
+    };
+    res.status(200).json({ message:'Post updated.' });
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
 // Delete a post
 router.delete('/:id', withAuth, async (req, res) => {

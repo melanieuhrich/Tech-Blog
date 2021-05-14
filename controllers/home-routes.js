@@ -63,7 +63,6 @@ router.get('/', async (req, res) => {
 
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
-    console.log(posts);
     // Pass serialized data and session flag into template
     res.render(
       // postData
@@ -79,6 +78,7 @@ router.get('/', async (req, res) => {
 
 // Get a post by its ID with authorization
 router.get('/post/:id', withAuth, async (req, res) => {
+  console.log(req.params.id);
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
@@ -88,13 +88,13 @@ router.get('/post/:id', withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['user_id', 'contents', 'date_created'],
+          include: [User]
+          // attributes: ['user_id', 'contents', 'date_created'],
         },
       ],
     });
 
     const post = postData.get({ plain: true });
-console.log('Post we are giving to the page!!',post);
     res.render(
       // postData
       'post', 
