@@ -6,6 +6,10 @@ From here, the user can also access their dashboard from which they can view, ad
 
 When finished, the user is able to logout. 
 
+To login and view the functionality, please use the following criteria:
+    Username: metl@test.com
+    Password: password123!
+
 ## Contact 
 
 If you wish to contact me you can reach me at melanieuhrich13@gmail.com.
