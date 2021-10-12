@@ -7,7 +7,9 @@ From here, the user can also access their dashboard from which they can view, ad
 When finished, the user is able to logout. 
 
 To login and view the functionality, please use the following criteria:
-    Username: metl@test.com
+
+    Username: mel@test.com
+
     Password: password123!
 
 ## Contact 
